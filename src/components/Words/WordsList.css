@@ -1,0 +1,8 @@
+.wordList {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: grayscale;
+  width: 75%;
+  margin: 20px auto;
+  justify-content: space-around;
+}
