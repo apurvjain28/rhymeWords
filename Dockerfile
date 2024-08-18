@@ -1,24 +1,23 @@
-# Use a Node.js image for development
-FROM node:16
+# Setting a base image
+FROM ubuntu 
 
-# Set the working directory inside the container
-WORKDIR /app
+RUN apt-get update
+RUN apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_22.x | bash -
+RUN apt-get upgrade -y
+RUN apt-get install -y nodejs
 
 # Copy the package.json and package-lock.json (if available)
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
 
 # Install dependencies
+WORKDIR /app
 RUN npm install
 
 # Copy the rest of the application code
 COPY . .
-
-# Expose the port your app runs on
-EXPOSE 3000
-
-# Set the PATH to include node_modules/.bin for react-scripts
-ENV PATH /app/node_modules/.bin:$PATH
 
 # Start the application in development mode
 CMD ["npm", "start"]
